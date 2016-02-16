@@ -52,9 +52,9 @@ type SceneNode () =
         updateChildren deltaTime
 
     abstract member DrawCurrent : RenderTarget -> RenderStates -> unit
-    default this.DrawCurrent target states = ()
+    default this.DrawCurrent _ _ = ()
 
     abstract member UpdateCurrent : Time -> unit
-    default this.UpdateCurrent deltaTime = ()
+    default this.UpdateCurrent _ = ()
 
 
