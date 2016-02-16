@@ -8,8 +8,6 @@ type SceneNode () =
 
     let mutable children = List<SceneNode>.Empty
 
-    let drawCurrent target states = ()
-
     let drawChildren target states =
         for child in children do
             (child :> Drawable).Draw (target, states)
@@ -21,10 +19,10 @@ type SceneNode () =
     do ()
 
     interface Drawable with
-        member this.Draw (target, states) =
+        override this.Draw (target, states) =
             let mutable newStates = states
             newStates.Transform <- states.Transform * this.Transform
-            drawCurrent target newStates
+            this.DrawCurrent target newStates
             drawChildren target newStates
 
     member val Parent =  None : SceneNode option with get, set
@@ -52,6 +50,9 @@ type SceneNode () =
     member this.Update (deltaTime : Time) =
         this.UpdateCurrent deltaTime
         updateChildren deltaTime
+
+    abstract member DrawCurrent : RenderTarget -> RenderStates -> unit
+    default this.DrawCurrent target states = ()
 
     abstract member UpdateCurrent : Time -> unit
     default this.UpdateCurrent deltaTime = ()
