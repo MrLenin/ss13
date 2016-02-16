@@ -78,34 +78,56 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
   <PropertyGroup>
-    <PreBuildEvent>del $(TargetDir)csfml-audio-2.dll
-del $(TargetDir)csfml-graphics-2.dll
-del $(TargetDir)csfml-system-2.dll
-del $(TargetDir)csfml-window-2.dll
-del $(TargetDir)sfml-audio-2.dll
-del $(TargetDir)sfml-graphics-2.dll
-del $(TargetDir)sfml-system-2.dll
-del $(TargetDir)sfml-window-2.dll
-copy C:\GitHub\SFML\lib\Release\sfml-audio-2.dll $(TargetDir)
-copy C:\GitHub\SFML\lib\Release\sfml-graphics-2.dll $(TargetDir)
-copy C:\GitHub\SFML\lib\Release\sfml-system-2.dll $(TargetDir)
-copy C:\GitHub\SFML\lib\Release\sfml-window-2.dll $(TargetDir)
-copy C:\GitHub\CSFML\lib\Release\csfml-audio-2.dll $(TargetDir)
-copy C:\GitHub\CSFML\lib\Release\csfml-graphics-2.dll $(TargetDir)
-copy C:\GitHub\CSFML\lib\Release\csfml-system-2.dll $(TargetDir)
-copy C:\GitHub\CSFML\lib\Release\csfml-window-2.dll $(TargetDir)</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="Program.fs" />
     <None Include="App.config" />
     <Content Include="packages.config" />
+    <Compile Include="AssemblyInfo.fs" />
+    <None Include="ResourceHolder.fs" />
+    <Compile Include="Scene.fs" />
+    <Compile Include="Entity.fs" />
+    <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="mscorlib" />
-    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <Reference Include="Chessie">
+      <HintPath>..\packages\Chessie.0.4.0\lib\net40\Chessie.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FSharp.Control.AsyncSeq">
+      <HintPath>..\packages\FSharp.Control.AsyncSeq.2.0.3\lib\net45\FSharp.Control.AsyncSeq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FSharp.Core">
+      <HintPath>..\packages\FSharp.Core.4.0.0.1\lib\net40\FSharp.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FSharp.Core.Fluent-4.0">
+      <HintPath>..\packages\FSharp.Core.Fluent-4.0.1.0.0.5\lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\FSharp.Core.Fluent-4.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FSharp.IO.FileSystem">
+      <HintPath>..\packages\FSharp.IO.FileSystem.3.2.1\lib\net451\FSharp.IO.FileSystem.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FSharpx.Async">
+      <HintPath>..\packages\FSharpx.Async.1.12.0\lib\net40\FSharpx.Async.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FSharpx.Collections">
+      <HintPath>..\packages\FSharpx.Collections.1.14.0\lib\net40\FSharpx.Collections.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FSharpx.Extras">
+      <HintPath>..\packages\FSharpx.Extras.1.10.3\lib\40\FSharpx.Extras.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FSharpx.Reflection">
+      <HintPath>..\packages\FSharpx.Reflection.1.9.7\lib\net40\FSharpx.Reflection.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
@@ -134,6 +156,24 @@ copy C:\GitHub\CSFML\lib\Release\csfml-window-2.dll $(TargetDir)</PreBuildEvent>
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
+  <PropertyGroup>
+    <PostBuildEvent>del $(TargetDir)csfml-audio-2.dll
+del $(TargetDir)csfml-graphics-2.dll
+del $(TargetDir)csfml-system-2.dll
+del $(TargetDir)csfml-window-2.dll
+del $(TargetDir)sfml-audio-2.dll
+del $(TargetDir)sfml-graphics-2.dll
+del $(TargetDir)sfml-system-2.dll
+del $(TargetDir)sfml-window-2.dll
+copy C:\GitHub\SFML\lib\Release\sfml-audio-2.dll $(TargetDir)
+copy C:\GitHub\SFML\lib\Release\sfml-graphics-2.dll $(TargetDir)
+copy C:\GitHub\SFML\lib\Release\sfml-system-2.dll $(TargetDir)
+copy C:\GitHub\SFML\lib\Release\sfml-window-2.dll $(TargetDir)
+copy C:\GitHub\CSFML\lib\Release\csfml-audio-2.dll $(TargetDir)
+copy C:\GitHub\CSFML\lib\Release\csfml-graphics-2.dll $(TargetDir)
+copy C:\GitHub\CSFML\lib\Release\csfml-system-2.dll $(TargetDir)
+copy C:\GitHub\CSFML\lib\Release\csfml-window-2.dll $(TargetDir)</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
