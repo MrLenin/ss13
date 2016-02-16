@@ -29,11 +29,14 @@ let rec private render () = async {
 
 let update (deltaTime : Time) =
     let mutable movement = Vector2f (0.f, 0.f)
+
     if movingUp then movement.Y <- movement.Y - 100.f
     if movingDown then movement.Y <- movement.Y + 100.f
     if movingLeft then movement.X <- movement.X - 100.f
     if movingRight then movement.X <- movement.X + 100.f
-    player.Position <- player.Position + (movement * deltaTime.AsSeconds ())
+
+    let update = movement * deltaTime.AsSeconds ()
+    player.Position <- player.Position + update
 
 let rec private run () =
     match window.IsOpen with
