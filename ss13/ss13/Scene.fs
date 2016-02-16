@@ -10,8 +10,6 @@ type SceneNode () =
 
     let drawCurrent target states = ()
 
-    let updateCurrent deltaTime = ()
-
     let drawChildren target states =
         for child in children do
             (child :> Drawable).Draw (target, states)
@@ -52,7 +50,10 @@ type SceneNode () =
         this.GetWorldTransform () * Vector2f ()
 
     member this.Update (deltaTime : Time) =
-        updateCurrent deltaTime
+        this.UpdateCurrent deltaTime
         updateChildren deltaTime
+
+    abstract member UpdateCurrent : Time -> unit
+    default this.UpdateCurrent deltaTime = ()
 
 
