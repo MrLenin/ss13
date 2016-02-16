@@ -6,7 +6,10 @@ open SFML.System
 type Entity () as this =
     inherit Scene.SceneNode ()
 
-    let updateCurrent deltaTime = (this :> Transformable).Position <- this.Velocity * deltaTime
+    let updateCurrent deltaTime =
+        let transform = (this :> Transformable)
+        let update = this.Velocity * deltaTime
+        transform.Position <- transform.Position + update
 
     do ()
 
