@@ -3,10 +3,9 @@
 open SFML.Graphics
 open SFML.System
 
+[<AbstractClass>]
 type Entity () =
     inherit Scene.SceneNode ()
-
-    do ()
 
     member val Velocity = Vector2f () with get, set
 

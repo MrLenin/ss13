@@ -3,8 +3,12 @@
 open SFML.Graphics
 open SFML.System
 
-type SceneNode () =
+[<AbstractClass>]
+type SceneNode () as this =
     inherit Transformable ()
+
+    [<DefaultValue>]
+    val mutable private parent : SceneNode option
 
     let mutable children = List<SceneNode>.Empty
 
@@ -16,7 +20,10 @@ type SceneNode () =
         for child in children do
             child.Update deltaTime
 
-    do ()
+    let rec getWorldTransform transform node =
+        match node with
+        | None -> transform
+        | Some (node : SceneNode) -> getWorldTransform (node.Transform * transform) node.parent
 
     interface Drawable with
         override this.Draw (target, states) =
@@ -25,36 +32,25 @@ type SceneNode () =
             this.DrawCurrent target newStates
             drawChildren target newStates
 
-    member val Parent =  None : SceneNode option with get, set
+    member val WorldTransform : Transform = getWorldTransform Transform.Identity this.parent
+
+    member val WorldPosition = this.WorldTransform * Vector2f ()
     
     member this.AttachChild (child : SceneNode) =
-        child.Parent <- Some this
+        child.parent <- Some this
         children <- children @ [child]
         
     member this.DetachChild (child : SceneNode) =
-        child.Parent <- None
+        child.parent <- None
         let newChildren, _ = List.partition (fun elem -> not (elem = child)) children
         children <- newChildren
-
-    member this.GetWorldTransform () =
-        let mutable transform = Transform.Identity
-        let mutable node = Some this
-        while not (node = None) do
-            transform <- node.Value.Transform * transform
-            node <- node.Value.Parent
-        transform
-
-    member this.GetWorldPosition () =
-        this.GetWorldTransform () * Vector2f ()
 
     member this.Update (deltaTime : Time) =
         this.UpdateCurrent deltaTime
         updateChildren deltaTime
 
     abstract member DrawCurrent : RenderTarget -> RenderStates -> unit
-    default this.DrawCurrent _ _ = ()
 
     abstract member UpdateCurrent : Time -> unit
-    default this.UpdateCurrent _ = ()
 
 
