@@ -32,11 +32,11 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <Tailcalls>true</Tailcalls>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>bin\x64\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DocumentationFile>bin\Release\ss13.XML</DocumentationFile>
+    <DocumentationFile>bin\x64\Release\ss13.XML</DocumentationFile>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
@@ -47,10 +47,10 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <Tailcalls>false</Tailcalls>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\x64\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Debug\ss13.XML</DocumentationFile>
+    <DocumentationFile>bin\x64\Debug\ss13.XML</DocumentationFile>
     <Prefer32Bit>true</Prefer32Bit>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
@@ -58,10 +58,10 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <Tailcalls>true</Tailcalls>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>bin\x64\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Release\ss13.XML</DocumentationFile>
+    <DocumentationFile>bin\x64\Release\ss13.XML</DocumentationFile>
     <Prefer32Bit>true</Prefer32Bit>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
@@ -90,6 +90,7 @@
     <Compile Include="Command.fs" />
     <Compile Include="Scene.fs" />
     <Compile Include="Entity.fs" />
+    <Compile Include="State.fs" />
     <Compile Include="World.fs" />
     <Compile Include="Input.fs" />
     <Compile Include="Program.fs" />
@@ -161,22 +162,8 @@
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
-    <PostBuildEvent>del $(TargetDir)csfml-audio-2.dll
-del $(TargetDir)csfml-graphics-2.dll
-del $(TargetDir)csfml-system-2.dll
-del $(TargetDir)csfml-window-2.dll
-del $(TargetDir)sfml-audio-2.dll
-del $(TargetDir)sfml-graphics-2.dll
-del $(TargetDir)sfml-system-2.dll
-del $(TargetDir)sfml-window-2.dll
-copy C:\GitHub\SFML\lib\Release\sfml-audio-2.dll $(TargetDir)
-copy C:\GitHub\SFML\lib\Release\sfml-graphics-2.dll $(TargetDir)
-copy C:\GitHub\SFML\lib\Release\sfml-system-2.dll $(TargetDir)
-copy C:\GitHub\SFML\lib\Release\sfml-window-2.dll $(TargetDir)
-copy C:\GitHub\CSFML\lib\Release\csfml-audio-2.dll $(TargetDir)
-copy C:\GitHub\CSFML\lib\Release\csfml-graphics-2.dll $(TargetDir)
-copy C:\GitHub\CSFML\lib\Release\csfml-system-2.dll $(TargetDir)
-copy C:\GitHub\CSFML\lib\Release\csfml-window-2.dll $(TargetDir)</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -65,5 +65,4 @@ type SceneNode () as this =
 
     abstract member UpdateCurrent : Time -> unit
 
-
 type CommandQueue = Fifo<Command<SceneNode>>
