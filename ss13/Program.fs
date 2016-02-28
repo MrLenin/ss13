@@ -12,6 +12,8 @@ let private timePerFrame = Time.FromSeconds (1.f / 60.f)
 
 let mutable private timeSinceLastUpdate = Time.Zero
 
+let update dt = stateStack.Update dt
+
 let rec private render () = async {
     match window.IsOpen with
     | false -> return ()
@@ -20,9 +22,6 @@ let rec private render () = async {
         stateStack.Draw ()
         window.Display ()
         return! render () }
-
-let update dt =
-    stateStack.Update dt
 
 let rec private run () =
     match window.IsOpen with
@@ -35,21 +34,16 @@ let rec private run () =
             window.DispatchEvents ()
             update timePerFrame
             if stateStack.IsEmpty then window.Close ()
-            run ()
-        | false -> run ()
-
-
+        | false -> ()
+        run ()
 
 let registerStates () =
     stateStack.RegisterState ID.Title (new CreateInstance (TitleState.CreateInstance))
 
 [<EntryPoint>]
 let main argv = 
-
-
     registerStates ()
     stateStack.Push ID.Title
-
     window.SetActive false |> ignore
 
     Async.Start (render ())
