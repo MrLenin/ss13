@@ -41,7 +41,7 @@ window.MouseMoved.AddHandler (new EventHandler<MouseMoveEventArgs>
     (fun sender args -> stateStack.HandleEvent (MouseMoveArgs args)))
 
 window.MouseButtonPressed.AddHandler (new EventHandler<MouseButtonEventArgs>
-(fun sender args -> stateStack.HandleEvent (MouseButtonArgs args)))
+    (fun sender args -> stateStack.HandleEvent (MouseButtonArgs args)))
 
 window.MouseButtonReleased.AddHandler (new EventHandler<MouseButtonEventArgs>
     (fun sender args -> stateStack.HandleEvent (MouseButtonArgs args)))
