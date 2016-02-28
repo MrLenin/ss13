@@ -46,7 +46,7 @@ type PendingChange =
 [<AbstractClass>]
 type State (stack : StateStack, context : Context) =
     let stack = stack
-    let mutable context = context
+    let context = context
 
     member val Context = context
 
@@ -91,8 +91,10 @@ and StateStack (context : Context) =
             state.Draw ()
 
     member this.HandleEvent args =
-        List.tryFind (fun (state : State) ->
-        not (state.HandleEvent args)) (stack |> List.rev)
+        List.tryFind
+            (fun (state : State) ->
+                not (state.HandleEvent args)
+            ) (stack |> List.rev)
         |> ignore
         this.applyPendingChanges ()
 
@@ -106,8 +108,10 @@ and StateStack (context : Context) =
         factories <- factories |> Map.add id createInstance
 
     member this.Update dt =
-        List.tryFind (fun (state : State) ->
-        not (state.Update dt)) (stack |> List.rev)
+        List.tryFind 
+            (fun (state : State) ->
+                not (state.Update dt)
+            ) (stack |> List.rev)
         |> ignore
         this.applyPendingChanges ()
 
