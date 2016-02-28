@@ -13,95 +13,95 @@ let internal stateStack = new StateStack (context)
 
 // Window/UI Events
 window.Closed.AddHandler (new EventHandler
-    (fun sender args -> 
-        stateStack.HandleEvent (Args args)
+    (fun sender eventArgs ->
+        stateStack.HandleEvent (ClosedEvent eventArgs)
         window.Close ()
     ))
 
 window.Resized.AddHandler (new EventHandler<SizeEventArgs> 
-    (fun sender args ->
-        stateStack.HandleEvent (Args args)
+    (fun sender eventArgs ->
+        stateStack.HandleEvent (ResizedEvent eventArgs)
     ))
 
 window.LostFocus.AddHandler (new EventHandler 
-    (fun sender args ->
-        stateStack.HandleEvent (Args args)
+    (fun sender eventArgs ->
+        stateStack.HandleEvent (LostFocusEvent eventArgs)
     ))
 
 window.GainedFocus.AddHandler (new EventHandler
-    (fun sender args ->
-        stateStack.HandleEvent (Args args)
+    (fun sender eventArgs ->
+        stateStack.HandleEvent (GainedFocusEvent eventArgs)
     ))
 
 // Keyboard Events
 window.TextEntered.AddHandler (new EventHandler<TextEventArgs>
-    (fun sender args ->
-        stateStack.HandleEvent (TextArgs args)
+    (fun sender eventArgs ->
+        stateStack.HandleEvent (TextEnteredEvent eventArgs)
     ))
 
 window.KeyPressed.AddHandler (new EventHandler<KeyEventArgs>
-    (fun sender args ->
-        stateStack.HandleEvent (KeyArgs args)
+    (fun sender eventArgs ->
+        stateStack.HandleEvent (KeyPressedEvent eventArgs)
     ))
 
 window.KeyReleased.AddHandler (new EventHandler<KeyEventArgs>
-    (fun sender args ->
-        stateStack.HandleEvent (KeyArgs args)
+    (fun sender eventArgs ->
+        stateStack.HandleEvent (KeyReleasedEvent eventArgs)
     ))
 
 // Mouse Events
 window.MouseMoved.AddHandler (new EventHandler<MouseMoveEventArgs>
-    (fun sender args ->
-        stateStack.HandleEvent (MouseMoveArgs args)
+    (fun sender eventArgs ->
+        stateStack.HandleEvent (MouseMovedEvent eventArgs)
     ))
 
 window.MouseButtonPressed.AddHandler (new EventHandler<MouseButtonEventArgs>
-    (fun sender args ->
-        stateStack.HandleEvent (MouseButtonArgs args)
+    (fun sender eventArgs ->
+        stateStack.HandleEvent (MouseButtonPressedEvent eventArgs)
     ))
 
 window.MouseButtonReleased.AddHandler (new EventHandler<MouseButtonEventArgs>
-    (fun sender args ->
-        stateStack.HandleEvent (MouseButtonArgs args)
+    (fun sender eventArgs ->
+        stateStack.HandleEvent (MouseButtonReleasedEvent eventArgs)
     ))
 
 window.MouseWheelScrolled.AddHandler (new EventHandler<MouseWheelScrollEventArgs>
-    (fun sender args ->
-        stateStack.HandleEvent (MouseWheelScrollArgs args)
+    (fun sender eventArgs ->
+        stateStack.HandleEvent (MouseWheelScrolledEvent eventArgs)
     ))
 
 window.MouseEntered.AddHandler (new EventHandler
-    (fun sender args ->
-        stateStack.HandleEvent (Args args)
+    (fun sender eventArgs ->
+        stateStack.HandleEvent (MouseEnteredEvent eventArgs)
     ))
 
 window.MouseLeft.AddHandler (new EventHandler
-    (fun sender args ->
-        stateStack.HandleEvent (Args args)
+    (fun sender eventArgs ->
+        stateStack.HandleEvent (MouseLeftEvent eventArgs)
     ))
 
 // Joystick Events
 window.JoystickButtonPressed.AddHandler (new EventHandler<JoystickButtonEventArgs>
-    (fun sender args ->
-        stateStack.HandleEvent (JoystickButtonArgs args)
+    (fun sender eventArgs ->
+        stateStack.HandleEvent (JoystickButtonPressedEvent eventArgs)
     ))
 
 window.JoystickButtonReleased.AddHandler (new EventHandler<JoystickButtonEventArgs>
-    (fun sender args ->
-        stateStack.HandleEvent (JoystickButtonArgs args)
+    (fun sender eventArgs ->
+        stateStack.HandleEvent (JoystickButtonReleasedEvent eventArgs)
     ))
 
 window.JoystickMoved.AddHandler (new EventHandler<JoystickMoveEventArgs>
-    (fun sender args ->
-        stateStack.HandleEvent (JoystickMoveArgs args)
+    (fun sender eventArgs ->
+        stateStack.HandleEvent (JoystickMovedEvent eventArgs)
     ))
 
 window.JoystickConnected.AddHandler (new EventHandler<JoystickConnectEventArgs>
-    (fun sender args ->
-        stateStack.HandleEvent (JoystickConnectArgs args)
+    (fun sender eventArgs ->
+        stateStack.HandleEvent (JoystickConnectedEvent eventArgs)
     ))
 
 window.JoystickDisconnected.AddHandler (new EventHandler<JoystickConnectEventArgs>
-    (fun sender args ->
-        stateStack.HandleEvent (JoystickConnectArgs args)
+    (fun sender eventArgs ->
+        stateStack.HandleEvent (JoystickDisconnectedEvent eventArgs)
     ))

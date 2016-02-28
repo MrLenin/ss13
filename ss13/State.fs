@@ -17,17 +17,25 @@ type Action =
     | Pop
     | Clear
 
-type EventArgs =
-    | Args of System.EventArgs
-    | SizeArgs of SizeEventArgs
-    | TextArgs of TextEventArgs
-    | KeyArgs of KeyEventArgs
-    | MouseMoveArgs of MouseMoveEventArgs
-    | MouseButtonArgs of MouseButtonEventArgs
-    | MouseWheelScrollArgs of MouseWheelScrollEventArgs
-    | JoystickButtonArgs of JoystickButtonEventArgs
-    | JoystickMoveArgs of JoystickMoveEventArgs
-    | JoystickConnectArgs of JoystickConnectEventArgs
+type Event =
+    | ClosedEvent of eventArgs : System.EventArgs
+    | ResizedEvent of eventArgs : SizeEventArgs
+    | LostFocusEvent of eventArgs : System.EventArgs
+    | GainedFocusEvent of eventArgs : System.EventArgs
+    | TextEnteredEvent of eventArgs : TextEventArgs
+    | KeyPressedEvent of eventArgs : KeyEventArgs
+    | KeyReleasedEvent of eventArgs : KeyEventArgs
+    | MouseMovedEvent of eventArgs : MouseMoveEventArgs
+    | MouseButtonPressedEvent of eventArgs : MouseButtonEventArgs
+    | MouseButtonReleasedEvent of eventArgs : MouseButtonEventArgs
+    | MouseWheelScrolledEvent of eventArgs : MouseWheelScrollEventArgs
+    | MouseEnteredEvent of eventArgs : System.EventArgs
+    | MouseLeftEvent of eventArgs : System.EventArgs
+    | JoystickButtonPressedEvent of eventArgs : JoystickButtonEventArgs
+    | JoystickButtonReleasedEvent of eventArgs : JoystickButtonEventArgs
+    | JoystickMovedEvent of eventArgs : JoystickMoveEventArgs
+    | JoystickConnectedEvent of eventArgs : JoystickConnectEventArgs
+    | JoystickDisconnectedEvent of eventArgs : JoystickConnectEventArgs
 
 type Context =
     struct
@@ -56,7 +64,7 @@ type State (stack : StateStack, context : Context) =
 
     abstract Draw : unit -> unit
     abstract Update : Time -> bool
-    abstract HandleEvent : EventArgs -> bool
+    abstract HandleEvent : Event -> bool
 
 and StateStack (context : Context) =
     let context = context
@@ -90,10 +98,10 @@ and StateStack (context : Context) =
         for state in stack do
             state.Draw ()
 
-    member this.HandleEvent args =
+    member this.HandleEvent event =
         List.tryFind
             (fun (state : State) ->
-                not (state.HandleEvent args)
+                not (state.HandleEvent event)
             ) (stack |> List.rev)
         |> ignore
         this.applyPendingChanges ()
@@ -120,9 +128,20 @@ and CreateInstance = delegate of (StateStack * Context) -> State
 type TitleState (stack, context) =
     inherit State (stack, context)
 
+    let text = new Text ()
+    let showText = true
+
+    let mutable textEffectTime = Time.Zero
+
     static member CreateInstance (stack, context) = new TitleState (stack, context) :> State
 
     override this.Draw () = ()
     override this.Update dt = false
-    override this.HandleEvent event = false
+
+    override this.HandleEvent event =
+        match event with
+        | KeyPressedEvent eventArgs ->
+            this.StackPop ()
+        | _ -> ()
+        true
 
