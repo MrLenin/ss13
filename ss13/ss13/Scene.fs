@@ -6,7 +6,7 @@ open SFML.System
 open Command
 
 [<AbstractClass>]
-type SceneNode () as this =
+type SceneNode () =
     inherit Transformable ()
 
     [<DefaultValue>]
@@ -34,9 +34,9 @@ type SceneNode () as this =
             this.DrawCurrent target states
             drawChildren target states
 
-    member val WorldTransform : Transform = getWorldTransform Transform.Identity this.parent
+    member this.WorldTransform : Transform = getWorldTransform Transform.Identity this.parent
 
-    member val WorldPosition = this.WorldTransform * Vector2f ()
+    member this.WorldPosition = this.WorldTransform * Vector2f ()
     
     abstract Category : Category with get
     default this.Category = Category.None

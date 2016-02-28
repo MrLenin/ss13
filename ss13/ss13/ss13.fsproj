@@ -53,6 +53,7 @@
     <DocumentationFile>bin\x64\Debug\ss13.XML</DocumentationFile>
     <Prefer32Bit>true</Prefer32Bit>
     <PlatformTarget>x64</PlatformTarget>
+    <StartWorkingDirectory>C:\Projects\ss13\ss13\ss13\bin\x64\Debug\</StartWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <DebugType>pdbonly</DebugType>
@@ -92,7 +93,7 @@
     <Compile Include="Entity.fs" />
     <Compile Include="State.fs" />
     <Compile Include="World.fs" />
-    <Compile Include="Input.fs" />
+    <Compile Include="Events.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +134,18 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
+    <Reference Include="sfmlnet-audio-2">
+      <HintPath>..\..\..\..\GitHub\SFML.Net\src\Audio\obj\x64\Release\sfmlnet-audio-2.dll</HintPath>
+    </Reference>
+    <Reference Include="sfmlnet-graphics-2">
+      <HintPath>..\..\..\..\GitHub\SFML.Net\src\Graphics\obj\x64\Release\sfmlnet-graphics-2.dll</HintPath>
+    </Reference>
+    <Reference Include="sfmlnet-system-2">
+      <HintPath>..\..\..\..\GitHub\SFML.Net\src\System\obj\x64\Release\sfmlnet-system-2.dll</HintPath>
+    </Reference>
+    <Reference Include="sfmlnet-window-2">
+      <HintPath>..\..\..\..\GitHub\SFML.Net\src\Window\obj\x64\Release\sfmlnet-window-2.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
@@ -140,30 +153,24 @@
       <HintPath>..\packages\TiledSharp.0.15\lib\TiledSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <ProjectReference Include="..\..\..\..\GitHub\SFML.Net\src\Audio\sfml-audio.csproj">
-      <Name>sfml-audio (SFML.Net\sfml-audio)</Name>
-      <Project>{0b202c4d-a457-47fe-84a3-031dd878c6be}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\GitHub\SFML.Net\src\Graphics\sfml-graphics.csproj">
-      <Name>sfml-graphics (SFML.Net\sfml-graphics)</Name>
-      <Project>{46786269-57b9-48e7-aa4f-8f4d84609fe6}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\GitHub\SFML.Net\src\System\sfml-system.csproj">
-      <Name>sfml-system (SFML.Net\sfml-system)</Name>
-      <Project>{31d24303-f6a9-4d53-bb03-a73edcb3186d}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\GitHub\SFML.Net\src\Window\sfml-window.csproj">
-      <Name>sfml-window (SFML.Net\sfml-window)</Name>
-      <Project>{d17de83d-a592-461f-8af2-53f9e22e1d0f}</Project>
-      <Private>True</Private>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>copy C:\GitHub\SFML\lib\Release\sfml-audio-2.dll $(TargetDir)
+copy C:\GitHub\SFML\lib\Release\sfml-graphics-2.dll $(TargetDir)
+copy C:\GitHub\SFML\lib\Release\sfml-system-2.dll $(TargetDir)
+copy C:\GitHub\SFML\lib\Release\sfml-window-2.dll $(TargetDir)
+copy C:\GitHub\CSFML\lib\Release\csfml-audio-2.dll $(TargetDir)
+copy C:\GitHub\CSFML\lib\Release\csfml-graphics-2.dll $(TargetDir)
+copy C:\GitHub\CSFML\lib\Release\csfml-system-2.dll $(TargetDir)
+copy C:\GitHub\CSFML\lib\Release\csfml-window-2.dll $(TargetDir)
+copy C:\GitHub\SFML.Net\src\Audio\obj\x64\$(ConfigurationName)\sfmlnet-audio-2.dll $(TargetDir)
+copy C:\GitHub\SFML.Net\src\Graphics\obj\x64\$(ConfigurationName)\sfmlnet-graphics-2.dll $(TargetDir)
+copy C:\GitHub\SFML.Net\src\System\obj\x64\$(ConfigurationName)\sfmlnet-system-2.dll $(TargetDir)
+copy C:\GitHub\SFML.Net\src\Window\obj\x64\$(ConfigurationName)\sfmlnet-window-2.dll $(TargetDir)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

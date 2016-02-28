@@ -17,6 +17,18 @@ type Action =
     | Pop
     | Clear
 
+type EventArgs =
+    | Args of System.EventArgs
+    | SizeArgs of SizeEventArgs
+    | TextArgs of TextEventArgs
+    | KeyArgs of KeyEventArgs
+    | MouseMoveArgs of MouseMoveEventArgs
+    | MouseButtonArgs of MouseButtonEventArgs
+    | MouseWheelScrollArgs of MouseWheelScrollEventArgs
+    | JoystickButtonArgs of JoystickButtonEventArgs
+    | JoystickMoveArgs of JoystickMoveEventArgs
+    | JoystickConnectArgs of JoystickConnectEventArgs
+
 type Context =
     struct
         val Window : RenderWindow
@@ -44,7 +56,7 @@ type State (stack : StateStack, context : Context) =
 
     abstract Draw : unit -> unit
     abstract Update : Time -> bool
-    abstract HandleEvent : Event -> bool
+    abstract HandleEvent : EventArgs -> bool
 
 and StateStack (context : Context) =
     let context = context
@@ -53,7 +65,7 @@ and StateStack (context : Context) =
     let mutable pendingList = List<PendingChange>.Empty
     let mutable factories : Map<ID, CreateInstance> = Map.empty
 
-    member val IsEmpty = stack.IsEmpty
+    member this.IsEmpty = stack.IsEmpty
 
     member private this.applyPendingChanges () =
         for change in pendingList do
@@ -64,6 +76,7 @@ and StateStack (context : Context) =
                 match this.createState change.ID with
                 | Some state -> stack <- stack @ [state]
                 | None -> ()
+        pendingList <- List<PendingChange>.Empty
 
     member private this.createState id : State option =
         match factories.TryFind id with
@@ -77,10 +90,11 @@ and StateStack (context : Context) =
         for state in stack do
             state.Draw ()
 
-    member this.HandleEvent event =
-        List.find (fun (state : State) ->
-        not (state.HandleEvent event)) (stack |> List.rev)
+    member this.HandleEvent args =
+        List.tryFind (fun (state : State) ->
+        not (state.HandleEvent args)) (stack |> List.rev)
         |> ignore
+        this.applyPendingChanges ()
 
     member this.Pop () =
         pendingList <- pendingList @ [PendingChange(Pop)]
@@ -92,7 +106,7 @@ and StateStack (context : Context) =
         factories <- factories |> Map.add id createInstance
 
     member this.Update dt =
-        List.find (fun (state : State) ->
+        List.tryFind (fun (state : State) ->
         not (state.Update dt)) (stack |> List.rev)
         |> ignore
         this.applyPendingChanges ()

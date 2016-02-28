@@ -7,7 +7,9 @@ open SFML.System
 type Entity () =
     inherit Scene.SceneNode ()
 
-    member val Velocity = Vector2f () with get, set
+    let mutable velocity = Vector2f ()
+
+    member this.Velocity with get () = velocity and set value = velocity <- value
 
     override this.UpdateCurrent deltaTime =
         let transform = (this :> Transformable)
