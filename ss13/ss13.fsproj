@@ -16,29 +16,6 @@
     <TargetFrameworkProfile />
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <Tailcalls>false</Tailcalls>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <WarningLevel>3</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DocumentationFile>bin\Debug\ss13.XML</DocumentationFile>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <Tailcalls>true</Tailcalls>
-    <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <WarningLevel>3</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DocumentationFile>bin\x64\Release\ss13.XML</DocumentationFile>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
   </PropertyGroup>
@@ -136,16 +113,20 @@
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="sfmlnet-audio-2">
-      <HintPath>..\..\..\..\GitHub\SFML.Net\src\Audio\obj\x64\Release\sfmlnet-audio-2.dll</HintPath>
+      <Name>SFML.Audio</Name>
+      <HintPath>..\extlib\SFML.Net\$(Configuration)\sfmlnet-audio-2.dll</HintPath>
     </Reference>
     <Reference Include="sfmlnet-graphics-2">
-      <HintPath>..\..\..\..\GitHub\SFML.Net\src\Graphics\obj\x64\Release\sfmlnet-graphics-2.dll</HintPath>
+      <Name>SFML.Graphics</Name>
+      <HintPath>..\extlib\SFML.Net\$(Configuration)\sfmlnet-graphics-2.dll</HintPath>
     </Reference>
     <Reference Include="sfmlnet-system-2">
-      <HintPath>..\..\..\..\GitHub\SFML.Net\src\System\obj\x64\Release\sfmlnet-system-2.dll</HintPath>
+      <Name>SFML.System</Name>
+      <HintPath>..\extlib\SFML.Net\$(Configuration)\sfmlnet-system-2.dll</HintPath>
     </Reference>
     <Reference Include="sfmlnet-window-2">
-      <HintPath>..\..\..\..\GitHub\SFML.Net\src\Window\obj\x64\Release\sfmlnet-window-2.dll</HintPath>
+      <Name>SFML.Window</Name>
+      <HintPath>..\extlib\SFML.Net\$(Configuration)\sfmlnet-window-2.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -159,20 +140,35 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
-  <PropertyGroup>
-    <PostBuildEvent>copy C:\GitHub\SFML\lib\Release\sfml-audio-2.dll $(TargetDir)
-copy C:\GitHub\SFML\lib\Release\sfml-graphics-2.dll $(TargetDir)
-copy C:\GitHub\SFML\lib\Release\sfml-system-2.dll $(TargetDir)
-copy C:\GitHub\SFML\lib\Release\sfml-window-2.dll $(TargetDir)
-copy C:\GitHub\CSFML\lib\Release\csfml-audio-2.dll $(TargetDir)
-copy C:\GitHub\CSFML\lib\Release\csfml-graphics-2.dll $(TargetDir)
-copy C:\GitHub\CSFML\lib\Release\csfml-system-2.dll $(TargetDir)
-copy C:\GitHub\CSFML\lib\Release\csfml-window-2.dll $(TargetDir)
-copy C:\GitHub\SFML.Net\src\Audio\obj\x64\$(ConfigurationName)\sfmlnet-audio-2.dll $(TargetDir)
-copy C:\GitHub\SFML.Net\src\Graphics\obj\x64\$(ConfigurationName)\sfmlnet-graphics-2.dll $(TargetDir)
-copy C:\GitHub\SFML.Net\src\System\obj\x64\$(ConfigurationName)\sfmlnet-system-2.dll $(TargetDir)
-copy C:\GitHub\SFML.Net\src\Window\obj\x64\$(ConfigurationName)\sfmlnet-window-2.dll $(TargetDir)</PostBuildEvent>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <Tailcalls>false</Tailcalls>
+    <OutputPath>..\bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <WarningLevel>3</WarningLevel>
+    <DocumentationFile>..\bin\x64\Debug\ss13.XML</DocumentationFile>
+    <Prefer32Bit>true</Prefer32Bit>
+    <StartWorkingDirectory />
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <Tailcalls>true</Tailcalls>
+    <OutputPath>..\bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <WarningLevel>3</WarningLevel>
+    <DocumentationFile>..\bin\x64\Release\ss13.XML</DocumentationFile>
+    <Prefer32Bit>true</Prefer32Bit>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="$(SolutionDir)extlib\SFML\sfml-audio-2.dll;$(SolutionDir)extlib\SFML\sfml-graphics-2.dll;$(SolutionDir)extlib\SFML\sfml-system-2.dll;$(SolutionDir)extlib\SFML\sfml-window-2.dll" DestinationFolder="$(TargetDir)" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(SolutionDir)extlib\CSFML\csfml-audio-2.dll;$(SolutionDir)extlib\CSFML\csfml-graphics-2.dll;$(SolutionDir)extlib\CSFML\csfml-system-2.dll;$(SolutionDir)extlib\CSFML\csfml-window-2.dll" DestinationFolder="$(TargetDir)" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(SolutionDir)extlib\SFML.NET\$(Configuration)\sfmlnet-audio-2.dll;$(SolutionDir)extlib\SFML.NET\$(Configuration)\sfmlnet-graphics-2.dll;$(SolutionDir)extlib\SFML.NET\$(Configuration)\sfmlnet-system-2.dll;$(SolutionDir)extlib\SFML.NET\$(Configuration)\sfmlnet-window-2.dll" DestinationFolder="$(TargetDir)" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
