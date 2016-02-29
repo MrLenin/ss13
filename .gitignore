@@ -211,3 +211,5 @@ GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
 /ss13/ss13.VC.opendb
+/extlib/CSFML
+/extlib/SFML
