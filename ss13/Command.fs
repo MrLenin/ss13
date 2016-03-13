@@ -1,7 +1,6 @@
-﻿module Command
+﻿namespace ss13
 
 open System
-open SFML.System
 
 type Fifo<'a when 'a : equality> = 
     new () = { xs = []; rxs = [] }
@@ -24,7 +23,7 @@ type Category =
     | None = 0
     | Scene = 1
 
-type CommandImpl<'a> = delegate of 'a * Time -> unit
+type CommandImpl<'a> = delegate of 'a * float -> unit
 
 type Command<'a> = {
     Action : CommandImpl<'a>

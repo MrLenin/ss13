@@ -65,13 +65,18 @@
     <None Include="App.config" />
     <Content Include="packages.config" />
     <Compile Include="AssemblyInfo.fs" />
-    <None Include="ResourceHolder.fs" />
+    <Compile Include="Clock.fs" />
+    <Compile Include="EventQueue.fs" />
+    <Compile Include="MathTypes.fs" />
+    <Compile Include="Vectors.fs" />
+    <Compile Include="Quaternion.fs" />
+    <Compile Include="Matrices.fs" />
+    <Compile Include="Plane.fs" />
+    <Compile Include="VertexTypes.fs" />
+    <Compile Include="ResourceLoading.fs" />
+    <Compile Include="SpriteBatch.fs" />
+    <None Include="Player.fs" />
     <Compile Include="Command.fs" />
-    <Compile Include="Scene.fs" />
-    <Compile Include="Entity.fs" />
-    <Compile Include="State.fs" />
-    <Compile Include="World.fs" />
-    <Compile Include="Events.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
@@ -112,25 +117,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
-    <Reference Include="sfmlnet-audio-2">
-      <Name>SFML.Audio</Name>
-      <HintPath>..\extlib\SFML.Net\$(Configuration)\sfmlnet-audio-2.dll</HintPath>
-    </Reference>
-    <Reference Include="sfmlnet-graphics-2">
-      <Name>SFML.Graphics</Name>
-      <HintPath>..\extlib\SFML.Net\$(Configuration)\sfmlnet-graphics-2.dll</HintPath>
-    </Reference>
-    <Reference Include="sfmlnet-system-2">
-      <Name>SFML.System</Name>
-      <HintPath>..\extlib\SFML.Net\$(Configuration)\sfmlnet-system-2.dll</HintPath>
-    </Reference>
-    <Reference Include="sfmlnet-window-2">
-      <Name>SFML.Window</Name>
-      <HintPath>..\extlib\SFML.Net\$(Configuration)\sfmlnet-window-2.dll</HintPath>
+    <Reference Include="SharpBgfx">
+      <HintPath>..\extlib\SharpBgfx\$(Platform)\$(Configuration)\SharpBgfx.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="TiledSharp">
       <HintPath>..\packages\TiledSharp.0.15\lib\TiledSharp.dll</HintPath>
       <Private>True</Private>
@@ -165,9 +159,7 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <Target Name="AfterBuild">
-    <Copy SourceFiles="$(SolutionDir)extlib\SFML\sfml-audio-2.dll;$(SolutionDir)extlib\SFML\sfml-graphics-2.dll;$(SolutionDir)extlib\SFML\sfml-system-2.dll;$(SolutionDir)extlib\SFML\sfml-window-2.dll" DestinationFolder="$(TargetDir)" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="$(SolutionDir)extlib\CSFML\csfml-audio-2.dll;$(SolutionDir)extlib\CSFML\csfml-graphics-2.dll;$(SolutionDir)extlib\CSFML\csfml-system-2.dll;$(SolutionDir)extlib\CSFML\csfml-window-2.dll" DestinationFolder="$(TargetDir)" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="$(SolutionDir)extlib\SFML.NET\$(Configuration)\sfmlnet-audio-2.dll;$(SolutionDir)extlib\SFML.NET\$(Configuration)\sfmlnet-graphics-2.dll;$(SolutionDir)extlib\SFML.NET\$(Configuration)\sfmlnet-system-2.dll;$(SolutionDir)extlib\SFML.NET\$(Configuration)\sfmlnet-window-2.dll" DestinationFolder="$(TargetDir)" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(SolutionDir)extlib\SharpBgfx\$(Platform)\$(Configuration)\SharpBgfx.dll;$(SolutionDir)extlib\SharpBgfx\$(Platform)\$(Configuration)\bgfx.dll;$(SolutionDir)extlib\SharpBgfx\$(Platform)\$(Configuration)\bgfx_debug.dll" DestinationFolder="$(TargetDir)" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
